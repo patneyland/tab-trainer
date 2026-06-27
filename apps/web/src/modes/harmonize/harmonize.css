@@ -1,0 +1,30 @@
+/**
+ * Scoped styles for the Harmonize / hold-your-line view.
+ *
+ * The view reuses the design-system primitives (.btn, .player, .level, .seg, .score-paper,
+ * .prompt-line, .sing-tools, .view-head) so it matches the rest of the app; these rules only add
+ * the few harmonize-specific touches. All colours come from the shared CSS custom properties.
+ */
+
+/* The "find the quieter line" prompt — a touch of breathing room above the tuner stage. */
+.harmonize-prompt {
+  margin-block: var(--space-2, 0.5rem) 0;
+}
+
+/* Subtle pulse on the word "quieter" so the core instruction reads at a glance. */
+.harmonize-prompt strong {
+  position: relative;
+  color: var(--accent);
+}
+
+/* The gentle "take another run at it" timeout hint, centred under the controls. */
+.harmonize-hint {
+  text-align: center;
+  margin-block: 0;
+}
+
+/* Keep the two playback buttons ("Hear the chord" / "Hear my note alone") aligned and able to
+   wrap onto two rows on narrow screens without breaking the .player flex layout. */
+.harmonize-prompt + .score-paper {
+  --score-paper-accent: var(--accent);
+}

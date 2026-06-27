@@ -36,6 +36,15 @@ export function midiToFrequency(midi: MidiNote): number {
   return A4_FREQUENCY * 2 ** ((midi - A4_MIDI) / 12);
 }
 
+/**
+ * Convert a frequency in Hz to a (fractional) MIDI note number — the inverse of
+ * `midiToFrequency`. A detected pitch rarely lands exactly on a semitone, so the result is
+ * fractional; round it to map back to the nearest MIDI note.
+ */
+export function frequencyToMidi(hz: number): number {
+  return A4_MIDI + 12 * Math.log2(hz / A4_FREQUENCY);
+}
+
 /** Pitch class 0-11 (C..B) of a MIDI note. */
 export function pitchClass(midi: MidiNote): number {
   return ((midi % 12) + 12) % 12;

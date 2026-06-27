@@ -20,13 +20,23 @@ Read an interval drawn on the staff, in any key signature, and name it.
 - [ ] Key-signature selector (start in C, ramp up the circle of fifths).
 **Full plan: [docs/modes/sight-reading.md](modes/sight-reading.md)**
 
-## v0.3 — Sing the interval 🎤 (target: ~1 day)
+## v0.3 — Sing the interval 🎤 ✅ (shipped)
 Hear a root, sing the target interval, get scored on pitch accuracy.
-- [ ] Mic capture + pitch detection (autocorrelation / `pitchy`).
-- [ ] Compare sung pitch to target within a cents tolerance.
-- [ ] Real-time pitch feedback (are you sharp/flat?).
-- [ ] Record attempts as `mode: 'sing'`.
-**Full plan: [docs/modes/sing-the-interval.md](modes/sing-the-interval.md)**
+- [x] Mic capture + pitch detection (`pitchy`, McLeod) with clarity/RMS gating + stable-pitch hold.
+- [x] Compare sung pitch to target within a cents tolerance (`gradeSungPitch`, octave-agnostic option).
+- [x] Real-time tuner needle feedback (flat ◀ in-tune ▶ sharp) + live cents readout.
+- [x] One-time vocal-range calibration (lowest→highest), persisted via a settings store.
+- [x] Record attempts as `mode: 'sing'` (with signed `centsError`).
+**Plan: [docs/plans/audition-readiness-plan.md](plans/audition-readiness-plan.md) · design: [docs/modes/sing-the-interval.md](modes/sing-the-interval.md)**
+
+## UI — "Conservatory Console" redesign ✅ (shipped)
+Complete visual overhaul away from the generic dark-navy/violet-gradient look.
+- [x] App-shell layout (topbar + mode rail + stage + persistent stats strip) — no more centered card.
+- [x] Graphite chassis + warm cream "score-paper" stage + single brass accent; Fraunces/Mona Sans/Spline Sans Mono; Lucide icons (no emoji).
+**Spec: [docs/design/design-system.md](design/design-system.md)**
+
+## Tonal context for ear training ✅ (shipped)
+- [x] Optional key-establishing **I–IV–V–I cadence** before each interval (default on), with the root constrained diatonic to a chosen key — intervals heard in a tonal context (per Karpinski). Isolated-interval drill still available via toggle.
 
 ## v0.4 — Accounts + cross-device sync ☁️
 Sign in on web/desktop/mobile and see one unified history.
@@ -37,7 +47,9 @@ Sign in on web/desktop/mobile and see one unified history.
 **Full plan: [docs/backend.md](backend.md)**
 
 ## v0.5+ — Audition readiness
-- [ ] Spaced-repetition scheduling that resurfaces weak intervals.
+- [x] Spaced-repetition selection (`selectNextInterval`) that resurfaces weak/unseen/stale intervals — wired into ear, sight, and sing modes.
+- [ ] Scale-degree / movable-do solfège answering (full functional ear training — the one schema fork, see Phase 2 of the audition-readiness plan).
+- [ ] Sight-SINGING (staff + mic scoring) and the Phase-2 assessment task types (tonal memory, major/minor, find-the-tonic, pitch-vs-rhythm).
 - [ ] "Audition mode" timed drills mimicking real conditions.
 - [ ] Compound intervals (beyond the octave) and interval-in-chord recognition.
 - [ ] Desktop (Tauri) and mobile (React Native/Expo) clients on the shared core + backend.

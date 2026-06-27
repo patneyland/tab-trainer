@@ -10,10 +10,14 @@
 export * from './theory/notes.js';
 export * from './theory/intervals.js';
 export * from './theory/keySignatures.js';
+export * from './theory/spelling.js';
 
 // Training
 export * from './training/types.js';
 export * from './training/session.js';
+export * from './training/sightReading.js';
+export * from './training/selection.js';
+export * from './training/melody.js';
 
 // Progress
 export * from './progress/types.js';

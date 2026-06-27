@@ -1,0 +1,108 @@
+/**
+ * Melody Mimic — view-scoped styles.
+ *
+ * Reuses the app's design tokens (--accent, --correct, --surface-2, --score-paper) and shared
+ * classes (.btn, .score-paper, .view-head, .player, .prompt-line) so the mode sits cohesively
+ * inside the app. Only the dot-row, live readout, and result block are mode-specific.
+ */
+
+.mimic-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.5rem 1rem;
+}
+
+/* The row of note "pills", one per melody note; each turns green as it's landed. */
+.mimic-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.mimic-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.9rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.7rem;
+  border: 2px solid rgba(35, 32, 26, 0.18);
+  background: rgba(35, 32, 26, 0.05);
+  color: var(--score-paper-ink);
+  transition:
+    background 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease;
+}
+
+.mimic-dot__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.mimic-dot--active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.mimic-dot--landed {
+  border-color: var(--correct);
+  background: var(--correct);
+  color: #0c241b;
+}
+
+/* Live cents readout + hold meter while capturing. */
+.mimic-live {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: min(18rem, 80%);
+}
+
+.mimic-live__cents {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--score-paper-ink);
+}
+
+.mimic-hold {
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(35, 32, 26, 0.14);
+  overflow: hidden;
+}
+
+.mimic-hold__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 90ms linear;
+}
+
+/* Final "you landed X / N" block. */
+.mimic-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.mimic-result__score {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.mimic-result__score strong {
+  color: var(--correct);
+  font-size: 1.5rem;
+}

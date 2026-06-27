@@ -9,11 +9,16 @@
 
 import type { IntervalDirection, IntervalId } from '../theory/intervals.js';
 import type { MidiNote } from '../theory/notes.js';
+import type { KeySignature } from '../theory/keySignatures.js';
+import type { SpelledNote } from '../theory/spelling.js';
 
-export type TrainingMode = 'ear' | 'sight' | 'sing';
+export type TrainingMode = 'ear' | 'sight' | 'sing' | 'mimic' | 'harmonize';
 
 /** How an interval is presented audibly. */
 export type PlaybackStyle = 'harmonic' | 'melodic';
+
+/** Staff clef. Sight reading starts on treble and ramps in bass. */
+export type Clef = 'treble' | 'bass';
 
 export interface EarTrainingConfig {
   /** Which intervals are eligible to be quizzed. */
@@ -23,6 +28,32 @@ export interface EarTrainingConfig {
   playbackStyle: PlaybackStyle;
   /** Inclusive MIDI range the root note is drawn from. */
   rootRange: { lowMidi: MidiNote; highMidi: MidiNote };
+}
+
+export interface SightReadingConfig {
+  /** Clefs the prompt may be rendered on. */
+  clefs: Clef[];
+  /** Key signatures to draw from — ramp outward along the circle of fifths. */
+  keyPool: KeySignature[];
+  /** Which intervals are eligible to be quizzed. */
+  intervalPool: IntervalId[];
+  /** Two stacked notes (harmonic) or two successive notes (melodic). */
+  presentation: PlaybackStyle;
+  /** Start true: only intervals whose notes both sit in the key. */
+  diatonicOnly: boolean;
+}
+
+export interface SingConfig {
+  /** Which intervals are eligible to be sung. */
+  intervalPool: IntervalId[];
+  /** Allowed directions for the sung interval. */
+  directions: IntervalDirection[];
+  /** From calibration — keep both root and target inside this so the user can sing both. */
+  vocalRange: { lowMidi: MidiNote; highMidi: MidiNote };
+  /** Pass band in cents. Default 50 (±50¢). */
+  toleranceCents: number;
+  /** Accept the right pitch class in any octave (recommended early — see plan Gotchas). */
+  octaveAgnostic: boolean;
 }
 
 export interface Question {
@@ -35,6 +66,20 @@ export interface Question {
   playbackStyle: PlaybackStyle;
   /** Convenience: the second note's MIDI value. */
   targetMidi: MidiNote;
+  /**
+   * Sight-reading-only notation block (present when `mode === 'sight'`). Optional so
+   * `mode: 'ear'` questions stay unchanged.
+   */
+  notation?: {
+    /** Clef the notes are written on. */
+    clef: Clef;
+    /** Key signature drawn on the staff. */
+    key: KeySignature;
+    /** The lower/first note, spelled for the key. */
+    rootSpelled: SpelledNote;
+    /** The note an interval away, correctly spelled. */
+    targetSpelled: SpelledNote;
+  };
 }
 
 export interface Answer {

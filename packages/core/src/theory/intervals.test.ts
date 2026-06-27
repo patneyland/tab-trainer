@@ -1,11 +1,18 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { midiToFrequency, MIDDLE_C_MIDI } from './notes.js';
+import { frequencyToMidi, midiToFrequency, MIDDLE_C_MIDI } from './notes.js';
 import { applyInterval, intervalById, intervalBetween } from './intervals.js';
 
 test('A4 is 440 Hz and middle C is ~261.63 Hz', () => {
   assert.equal(midiToFrequency(69), 440);
   assert.ok(Math.abs(midiToFrequency(MIDDLE_C_MIDI) - 261.6256) < 0.001);
+});
+
+test('frequencyToMidi inverts midiToFrequency', () => {
+  assert.equal(frequencyToMidi(440), 69);
+  for (const midi of [48, 60, 67, 72, 81]) {
+    assert.ok(Math.abs(frequencyToMidi(midiToFrequency(midi)) - midi) < 1e-9);
+  }
 });
 
 test('a perfect fifth above middle C is G4 (MIDI 67)', () => {

@@ -17,6 +17,8 @@ export interface AttemptRecord {
   chosenIntervalId: IntervalId;
   correct: boolean;
   responseMs: number;
+  /** Sing mode only: signed cents error of the sung pitch vs the target (+ = sharp). */
+  centsError?: number;
 }
 
 export interface IntervalStat {
