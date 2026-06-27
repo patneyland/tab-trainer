@@ -2,6 +2,8 @@
 
 Train your **ear**, **eyes**, and **voice** to know musical intervals instantly — built to prepare for a Tabernacle Choir audition, where interval memorization and sight reading matter most.
 
+**▶ Live demo: [tab-trainer.vercel.app](https://tab-trainer.vercel.app)** — deploys automatically from `main`.
+
 ## The three skills
 
 Tab Trainer drills the same musical intervals through three complementary modes:
